@@ -1,37 +1,40 @@
 import configparser
-import config
+import os
+config = configparser.RawConfigParser()
 
-config=configparser.RawConfigParser()
-config.read(".\\configurations\\config.ini")
+config_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "configurations", "config.ini")
+config.read(config_path)
 
 class ReadConfig:
     @staticmethod
     def getApplicationURL():
-        url=config.get('common info','baseURL')
+        url=config.get('base info','baseurl')
         return url
 
     @staticmethod
     def getfirstname():
-        firstname=config.get('common info','firstname')
+        firstname=config.get('base info','firstname')
         return firstname
     @staticmethod
     def getlastname():
-        lastname=config.get('common info','lastname')
+        lastname=config.get('base info','lastname')
         return lastname
 
     @staticmethod
     def getemail():
-        email=config.get('common info','email')
+        email=config.get('base info','email')
         return email
     @staticmethod
     def getpassword():
-        password=config.get('common info','password')
-        return password
-    def getconfirmpass(self):
-        password=config.get('common info','password')
+        password=config.get('base info','password')
         return password
 
     @staticmethod
     def getphonenumber():
-        number=config.get('common info','phonenumber')
+        number=config.get('base info','phonenumber')
         return number
+    @staticmethod
+    def getvalidcode():
+        code=config.get('base info','validcode')
+        return code
+
