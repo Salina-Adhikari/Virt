@@ -2,6 +2,7 @@ import time
 from selenium.webdriver.common.by import By
 import pytest
 
+from pageobjects.AgencyPage import AgencyPage
 from pageobjects.verification import Verification
 from utilities import  customLogger
 from utilities import readProperties
@@ -15,6 +16,12 @@ class Test_2_Sigin:
     lastname = ReadConfig.getlastname()
     phonenumber = ReadConfig.getphonenumber()
     password = ReadConfig.getpassword()
+    name=ReadConfig.getname()
+    role=ReadConfig.getrole()
+    agency_email=ReadConfig.getagency_email()
+    website=ReadConfig.getwebsite()
+    address=ReadConfig.getaddress()
+    country=ReadConfig.getcountry()
 
 
 
@@ -24,6 +31,7 @@ class Test_2_Sigin:
             self.driver.get(self.url)
             self.sp = SignupPage(self.driver)
             self.verify=Verification(self.driver)
+            self.agency=AgencyPage(self.driver)
             self.sp.click_signup()
             time.sleep(2)
             self.driver.maximize_window()
@@ -45,10 +53,18 @@ class Test_2_Sigin:
             message = mail_helper.wait_for_email()
             code = mail_helper.get_verification_code(message["id"])
             print("Verification code:", code)
+
             self.verify.set_verification(code)
+            time.sleep(2)
             self.verify.click_verification_button()
-
-            time.sleep(3)
-
-
-
+            self.agency.set_name(self.name)
+            self.agency.set_role(self.role)
+            self.agency.set_email(self.agency_email)
+            self.agency.set_website(self.website)
+            self.agency.set_address(self.address)
+            self.agency.click_region_agency()
+            time.sleep(2)
+            self.agency.set_region_search(self.country)
+            time.sleep(2)
+            self.agency.click_region_agency()
+            time.sleep(2)

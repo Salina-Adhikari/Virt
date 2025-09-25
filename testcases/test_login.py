@@ -5,11 +5,10 @@ from utilities import  customLogger
 from utilities import readProperties
 from pageobjects.LoginPage import SignupPage
 from utilities.readProperties import ReadConfig
-
+from utilities.mail_helper import MailHelper
 
 class Test_1_Sigin:
     url=ReadConfig.getApplicationURL()
-    email=ReadConfig.getemail()
     firstname=ReadConfig.getfirstname()
     lastname=ReadConfig.getlastname()
     phonenumber=ReadConfig.getphonenumber()
@@ -30,7 +29,10 @@ class Test_1_Sigin:
         time.sleep(2)
         self.sp.set_firstname(self.firstname)
         self.sp.set_lastname(self.lastname)
-        self.sp.set_email(self.email)
+        mail_helper = MailHelper()
+        temp_email = mail_helper.email
+        print("Using email:", temp_email)
+        self.sp.set_email(temp_email)
         self.sp.set_phonenumber(self.phonenumber)
         self.sp.set_password(self.password)
         self.sp.set_confirm_password(self.password)

@@ -6,12 +6,16 @@ from selenium.webdriver.support import expected_conditions as EC
 class Verification:
     verification_xpath="input[class='disabled:cursor-not-allowed']"
     verify_button_xpath="//button[normalize-space()='Verify Code']"
+    resend_code_xpath="//span[@class='text-primary']"
+    message_box_xpath="//div[contains(text(),'Your account has been created successfully')]"
 
     def __init__(self, driver):
         self.driver = driver
-    def set_verification(self,validcode):
+    def set_verification(self,code):
         verification_field = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, self.verification_xpath)))
         verification_field.clear()
-        verification_field.send_keys(validcode)
+        verification_field.send_keys(code)
     def click_verification_button(self):
         self.driver.find_element(By.XPATH,self.verify_button_xpath).click()
+    def click_resend_code_button(self):
+        self.driver.find_element(By.XPATH,self.resend_code_xpath).click()

@@ -2,6 +2,7 @@ from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from utilities.mail_helper import MailHelper
 
 class SignupPage:
     signup_xpath = "//a[normalize-space()='Sign Up']"
