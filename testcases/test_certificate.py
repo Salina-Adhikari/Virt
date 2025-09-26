@@ -2,8 +2,9 @@ import time
 from selenium.webdriver.common.by import By
 import pytest
 
+from pageobjects.Certificate import Certificate
+from pageobjects.verification import Verification
 from pageobjects.AgencyPage import AgencyPage
-from pageobjects.Experience import Experience
 from pageobjects.verification import Verification
 from utilities import  customLogger
 from utilities import readProperties
@@ -23,10 +24,14 @@ class Test_2_Sigin:
     website=ReadConfig.getwebsite()
     address=ReadConfig.getaddress()
     country=ReadConfig.getcountry()
-    year=ReadConfig.getyear()
     number=ReadConfig.getnumber()
-    area=ReadConfig.getarea()
-    metrics=ReadConfig.getmetrics()
+    country=ReadConfig.getcountry()
+    institution=ReadConfig.getinstitution()
+    filepath_1=ReadConfig.getfilepath_1()
+    filepath_2=ReadConfig.getfilepath_2()
+
+
+
     def test_login(self, setup):
             self.driver = setup
             time.sleep(2)
@@ -34,7 +39,7 @@ class Test_2_Sigin:
             self.sp = SignupPage(self.driver)
             self.verify=Verification(self.driver)
             self.agency=AgencyPage(self.driver)
-            self.exp=Experience(self.driver)
+            self.certi=Certificate(self.driver)
             self.sp.click_signup()
             time.sleep(2)
             self.driver.maximize_window()
@@ -53,14 +58,13 @@ class Test_2_Sigin:
             time.sleep(2)
             self.sp.click_next_button()
             time.sleep(2)
-            #Verification
             message = mail_helper.wait_for_email()
             code = mail_helper.get_verification_code(message["id"])
             print("Verification code:", code)
+
             self.verify.set_verification(code)
             time.sleep(2)
             self.verify.click_verification_button()
-            # Agency details
             self.agency.set_name(self.name)
             self.agency.set_role(self.role)
             self.agency.set_email(self.agency_email)
@@ -69,22 +73,10 @@ class Test_2_Sigin:
             self.agency.click_region_agency()
             time.sleep(2)
             self.agency.set_region_search(self.country)
-            time.sleep(2)
+            time.sleep(5)
             self.agency.click_region_country(self.country)
             time.sleep(2)
             self.agency.click_next_button()
             time.sleep(2)
-            #Experience
-            self.exp.click_experience()
-            self.exp.set_experience()
-            self.exp.set_students(self.number)
-            self.exp.set_focus(self.area)
-            self.exp.set_success(self.metrics)
-            time.sleep(2)
-            self.exp.set_test()
-            time.sleep(2)
-            self.exp.click_next_button()
-
-
-
-
+            self.certi.set_registration_number_xpath(self.number)
+            self.certi.set_per_country_xpath()

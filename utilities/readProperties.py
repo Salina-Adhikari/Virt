@@ -72,5 +72,26 @@ class ReadConfig:
     def getmetrics():
         metrics=config.get('experience info','metrics')
         return metrics
+    @staticmethod
+    def getnumber():
+        number=config.get('certificate info','number')
+        return number
+    @staticmethod
+    def getcountry():
+        country=config.get('certificate info','country')
+        return country
+    @staticmethod
+    def getinstitution():
+        institution=config.get('certificate info','institution')
+        return institution
+    @staticmethod
+    def getfilepath_1():
+        filepath_1=config.get('certificate info','filepath_1')
+        return filepath_1
+    @staticmethod
+    def getfilepath_2():
+        filepath_2=config.get('certificate info','filepath_2')
+        return filepath_2
+
 
 
