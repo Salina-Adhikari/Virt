@@ -56,5 +56,21 @@ class ReadConfig:
     def getcountry():
         country=config.get('agency info','country')
         return country
+    @staticmethod
+    def getyear():
+        year=config.get('experience info','year')
+        return year
+    @staticmethod
+    def getnumber():
+        number=config.get('experience info','number')
+        return number
+    @staticmethod
+    def getarea():
+        area=config.get('experience info','area')
+        return area
+    @staticmethod
+    def getmetrics():
+        metrics=config.get('experience info','metrics')
+        return metrics
 
 
